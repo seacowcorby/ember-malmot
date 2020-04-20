@@ -4,6 +4,14 @@
   {{#docs-demo as |demo|}}
     {{#demo.example name="my-demo.hbs"}}
       <p>This is in the example</p>
+
+      <MalmotSvg @height="500" @width="500">
+      {{#each (range 0 65 false) as |d|}}
+        <MalmotLine @x1="0" @y2="500" @y1={{mult d (div 500 65)}} @x2={{mult d (div 500 65)}}/>
+
+      {{/each}}
+
+      </MalmotSvg>
     {{/demo.example}}
 
   {{/docs-demo}}

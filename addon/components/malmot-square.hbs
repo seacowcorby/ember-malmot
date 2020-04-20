@@ -1,1 +1,11 @@
-<rect ...attributes x={{@x}} y={{@y}} width={{@length}} height={{@length}} />
+<rect ...attributes
+  x={{@x}}
+  y={{@y}}
+  width={{@length}}
+  height={{@length}}
+  fill="#fff"
+  fill-opacity="0"
+  {{on "click" this.handleClick}}
+
+  {{on "mouseup" this.handleMouseDown}}
+  />
