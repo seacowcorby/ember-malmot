@@ -19,6 +19,17 @@ Installation
 ember install ember-malmot
 ```
 
+Demo/Documentation
+------------------------------------------------------------------------------
+
+Run the addon dummy application to see examples and documentation.
+
+```
+ember server
+```
+
+Then visit [http://localhost:4200].
+
 
 Usage
 ------------------------------------------------------------------------------
