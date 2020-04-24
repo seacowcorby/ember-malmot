@@ -28,7 +28,7 @@ Run the addon dummy application to see examples and documentation.
 ember server
 ```
 
-Then visit [http://localhost:4200].
+Then visit [http://localhost:4200](http://localhost:4200).
 
 
 Usage

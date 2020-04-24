@@ -1,4 +1,9 @@
-<svg width={{@width}} height={{@height}} >
+<svg width={{@width}} height={{@height}} 
 
-{{yield}}
+{{did-insert this.registerMouseDownListener}}
+   {{did-insert this.registerMouseUpListener}}
+   {{did-insert this.registerMouseMoveListener}} 
+   >
+
+{{yield this}}
 </svg>

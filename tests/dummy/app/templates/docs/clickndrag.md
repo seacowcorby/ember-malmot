@@ -1,15 +1,13 @@
-Circle component
+Click and Drag
 
-{{#docs-demo as |demo|}}
-   {{#demo.example name="circle01.hbs"}}
-    <MalmotSvg @height="30" @width="50">
-       <MalmotCircle @x="11" @y="11" @r="10"/>
-    </MalmotSvg> 
-    {{/demo.example}}
-    {{demo.snippet "circle01.hbs"}} 
-{{/docs-demo}}
+To support click and drag support, toggle flags, add
+constraints, and add optional callback handlers.
 
-This is how you do click handling.
+@draggable
+
+Draggable marks the component as draggable. Without
+any other arguments, the component can be dragged around
+within the SVG wrapper.
 
 {{#docs-demo as |demo|}}
    {{#demo.example name="circle02.hbs"}}
@@ -17,13 +15,12 @@ This is how you do click handling.
       <MalmotSvg 
          @height="30" 
          @width="200" as |svg|>
-           
             <MalmotCircle 
                 @x="11" 
                 @y="11" 
                 @r="10" 
                 @draggable=true
-                @svgMouseDownCallback={{svg.mouseDownCallback}}
+                @svg={{svg}}
                 @onClick={{wrapper.clickHandler}}
       />
       </MalmotSvg> 
