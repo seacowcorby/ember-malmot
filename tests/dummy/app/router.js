@@ -15,6 +15,7 @@ Router.map(function() {
     this.route('malmotsquare');
     this.route('malmotrectangle');
     this.route('clickndrag');
+    this.route('animatemovement');
   });
 
 });

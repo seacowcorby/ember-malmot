@@ -10,7 +10,7 @@ any other arguments, the component can be dragged around
 within the SVG wrapper.
 
 {{#docs-demo as |demo|}}
-   {{#demo.example name="circle02.hbs"}}
+   {{#demo.example name="clickndrag01.hbs"}}
    <CircleWrapper as |wrapper|>
       <MalmotSvg 
          @height="30" 
@@ -24,9 +24,8 @@ within the SVG wrapper.
                 @onClick={{wrapper.clickHandler}}
       />
       </MalmotSvg> 
-      {{wrapper.someText}}
    </CircleWrapper>
    {{/demo.example}}
-   {{demo.snippet "circle02.hbs"}} 
+   {{demo.snippet "clickndrag01.hbs"}} 
 {{/docs-demo}}
 

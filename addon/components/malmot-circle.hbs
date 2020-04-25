@@ -1,15 +1,30 @@
-
-
-<circle
-   cx={{this.cx}}
-   cy={{this.cy}}
-   r={{@r}}
-   fill="red"
-   fill-opacity="0.5"
- {{did-insert this.registerMouseDownListener}}
-   {{did-insert this.registerMouseUpListener}}
-   {{did-insert this.registerMouseMoveListener}}
-   {{did-insert this.registerMouseClickListener}}
-  >
-
-  </circle>
+{{#if @animatePositionChange}}
+  {{#animated-value
+    bubble
+    key="id"
+    watch="myX,myY"
+    use=this.moveThem
+    duration=1000 as |bubble|
+  }}
+    <circle
+      cx={{bubble.myX}}
+      cy={{bubble.myY}}
+      r={{@r}}
+      fill="blue"
+      fill-opacity="0.5"
+    ></circle>
+  {{/animated-value}}
+{{else}}
+  Not animated
+  <circle
+    cx={{this.bubble.myX}}
+    cy={{this.bubble.myY}}
+    r={{@r}}
+    fill="red"
+    fill-opacity="0.5"
+    {{did-insert this.registerMouseDownListener}}
+    {{did-insert this.registerMouseUpListener}}
+    {{did-insert this.registerMouseMoveListener}}
+    {{did-insert this.registerMouseClickListener}}
+  ></circle>
+{{/if}}

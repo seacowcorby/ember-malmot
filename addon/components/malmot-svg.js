@@ -1,18 +1,37 @@
 import Component from '@glimmer/component';
-import { tracked } from "@glimmer/tracking";
-import { action } from '@ember/object';
+import {
+  tracked
+} from "@glimmer/tracking";
+import {
+  action
+} from '@ember/object';
+import {
+  toLeft,
+  toRight
+} from 'ember-animated/transitions/move-over';
 
 export default class MalmotSvgComponent extends Component {
 
   @tracked trackingMovement = false;
-  @tracked mouseMoveCallbacks = [];
-  @tracked mouseUpCallbacks = [];
   @tracked mouseCallbacks = [];
 
   @action
   handleMouseDown(event) {
-    console.log("Parent Mouse down!", event)
+    //console.log("Parent Mouse down!", event)
   }
+
+  @action
+  mySpanRules({
+    oldItems,
+    newItems
+  }) {
+    if (oldItems[0] < newItems[0]) {
+      return toLeft;
+    } else {
+      return toRight;
+    }
+  }
+
 
   @action
   handleMouseUp(event) {
@@ -26,11 +45,20 @@ export default class MalmotSvgComponent extends Component {
     );
 
     this.mouseCallbacks = [];
-    // this.mouseUpCallbacks.forEach(callback => {
-    //   callback(event);
-    // });
-    // this.mouseMoveCallbacks = [];
-    // this.mouseUpCallbacks = [];
+  }
+
+  @action
+  handleMouseLeave(event) {
+    this.trackingMovement = false;
+    //console.log("Parent Mouse up!", event);
+
+    this.mouseCallbacks.forEach(
+      registeredElement => {
+        registeredElement.mouseUpCallback(event);
+      }
+    );
+
+    this.mouseCallbacks = [];
   }
 
   @action
@@ -40,13 +68,6 @@ export default class MalmotSvgComponent extends Component {
         registeredElement.mouseMoveCallback(event);
       }
     );
-
-    // if (this.trackingMovement) { 
-    //   // console.log("Parent Mouse move!", event);
-    //   this.mouseMoveCallbacks.forEach(callback => {
-    //     callback(event);
-    //   });
-    // }
   }
 
   @action
@@ -60,24 +81,24 @@ export default class MalmotSvgComponent extends Component {
   }
 
   @action
-  registerMouseUpListener(element) { 
-   element.addEventListener('mouseup', this.handleMouseUp);
+  registerMouseUpListener(element) {
+    element.addEventListener('mouseup', this.handleMouseUp);
   }
 
   @action
-  mouseDownCallback( event, sourceElement, mouseMoveCallback, mouseUpCallback) {
-    this.trackingMovement = true;
+  registerMouseLeaveListener(element) {
+    element.addEventListener('mouseleave', this.handleMouseLeave);
+  }
 
-    this.mouseMoveCallbacks[sourceElement] = mouseMoveCallback;
-    this.mouseUpCallbacks[sourceElement] = mouseUpCallback;
+  @action
+  mouseDownCallback(event, sourceElement, mouseMoveCallback, mouseUpCallback) {
+    this.trackingMovement = true;
 
     this.mouseCallbacks.push({
       element: sourceElement,
       mouseMoveCallback: mouseMoveCallback,
       mouseUpCallback: mouseUpCallback
     });
-    // element.addEventListener('mousemove', this.handleMouseMove);
-    // element.addEventListener('mouseup', this.handleMouseUp);
   }
 
 }

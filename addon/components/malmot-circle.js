@@ -5,10 +5,18 @@ import {
 import {
   action
 } from '@ember/object';
+import moveSVG from 'ember-animated/motions/move-svg';
+import {
+  parallel
+} from 'ember-animated';
+import {
+  toLeft,
+  toRight
+} from 'ember-animated/transitions/move-over';
 
 export default class MalmotCircleComponent extends Component {
 
- 
+
   @tracked
   mousedownXLocation = null;
   @tracked
@@ -17,27 +25,70 @@ export default class MalmotCircleComponent extends Component {
   minimumDragDistance = 2;
   dragging = false;
 
+  @tracked storeX = 0;
+  @tracked storeY = 0;
   @tracked xOffset = 0;
   @tracked yOffset = 0;
 
   constructor() {
     super(...arguments);
-    this.initialX = Number(this.args.x);
-    this.initialY = Number(this.args.y);
+    if (this.args.position) {
+      this.initialX = Number(this.args.position.x);
+      this.initialY = Number(this.args.position.y);
+
+    } else {
+      this.initialX = Number(this.args.x);
+      this.initialY = Number(this.args.y);
+
+    }
+    this.storeX = this.initialX;
+    this.storeY = this.initialY;
   }
 
+  get bubble() {
+    return {
+      myX: this.cx,
+      myY: this.cy
+    }
+  }
+
+  /// animation stuff
+  * moveThem({
+    keptSprites
+  }) {
+    console.log("This is called");
+    // eslint-disable-next-line require-yield
+    keptSprites.forEach(
+      parallel(
+        moveSVG.property('cx'),
+        moveSVG.property('cy'),
+        moveSVG.property('r'),
+      )
+    );
+  }
+
+
+
+
+  /// end animation stuff
+
+
   get cx() {
-    return this.initialX - this.xOffset;
+    if (this.args.draggable) {
+      return this.storeX + this.xOffset;
+    } else {
+      return this.args.x;
+    }
   }
 
 
   get cy() {
-    return this.initialY  - this.yOffset;
+    return this.storeY + this.yOffset;
   }
 
 
-  @action 
-  handleClick(event) { 
+  @action
+  handleClick(event) {
 
     if (this.args.onClick) {
       //   this.args.onClick(event);
@@ -55,21 +106,22 @@ export default class MalmotCircleComponent extends Component {
 
     this.mousedownXLocation = event.clientX;
     this.mousedownYLocation = event.clientY;
-    this.mouseIsDown = true; 
-    console.log("Mouse down!", event)
+    this.mouseIsDown = true;
+    // console.log("Mouse down!", event)
   }
 
   @action
-  handleMouseUp(event) {
-    // this.mouseIsDown = false;
-    // this.dragging = false;
-    // console.log('Circle Mouse Up!', event);
-  }
+  handleMouseUp(event) {}
 
   @action
   mouseUpCallback(event) {
     this.mouseIsDown = false;
     this.dragging = false;
+    this.storeX += this.xOffset;
+    this.storeY += this.yOffset;
+    this.xOffset = 0;
+    this.yOffset = 0;
+
     console.log('Circle Mouse Up!', event);
   }
 
@@ -82,35 +134,31 @@ export default class MalmotCircleComponent extends Component {
   mouseMoveCallback(event) {
     console.log('Circle callback called');
     let mousemoveXLocation = event.clientX;
-    //let mousemoveYLocation = event.clientY;
+    let mousemoveYLocation = event.clientY;
 
     if (this.mouseIsDown === true) {
-      let horizontalDistanceTravelled = this.mousedownXLocation - mousemoveXLocation;
+      let horizontalDistanceTravelled = mousemoveXLocation - this.mousedownXLocation;
       if (Math.abs(horizontalDistanceTravelled) > this.minimumDragDistance) {
         this.dragging = true;
       }
       if (this.dragging) {
         this.xOffset = horizontalDistanceTravelled;
-        //console.log(`Dragged ${horizontalDistanceTravelled} pixels`)
+      }
+    }
+    if (this.mouseIsDown === true) {
+      let verticalDistanceTravelled = mousemoveYLocation - this.mousedownYLocation;
+      if (Math.abs(verticalDistanceTravelled) > this.minimumDragDistance) {
+        this.dragging = true;
+      }
+      if (this.dragging) {
+        this.yOffset = verticalDistanceTravelled;
       }
     }
   }
 
-  @action 
+  @action
   handleMouseMove(event) {
-    // let mousemoveXLocation = event.clientX;
-    // //let mousemoveYLocation = event.clientY;
 
-    // if (this.mouseIsDown === true) {
-    //   let horizontalDistanceTravelled = this.mousedownXLocation - mousemoveXLocation;
-    //   if (Math.abs(horizontalDistanceTravelled) > this.minimumDragDistance) {
-    //     this.dragging = true;
-    //   }
-    //   if (this.dragging) {
-    //     this.xOffset = horizontalDistanceTravelled;
-    //     //console.log(`Dragged ${horizontalDistanceTravelled} pixels`)
-    //   }
-    // }
   }
 
   @action
