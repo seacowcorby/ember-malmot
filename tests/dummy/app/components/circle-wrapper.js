@@ -18,15 +18,12 @@ export default class CircleWrapper extends Component {
 
   @tracked animatePosition = 0;
 
+  get wrapperY() {
+    return 11 + (5 * this.animatePosition);
+  }
 
   get wrapperX() {
-    if (this.animatePosition === 0) {
-      // console.log("Returning 11");
-      return 11;
-    } else {
-      // console.log("Returning 51");
-      return 51;
-    }
+    return 11 + (40 * this.animatePosition);
   }
 
   @action

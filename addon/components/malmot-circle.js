@@ -83,7 +83,11 @@ export default class MalmotCircleComponent extends Component {
 
 
   get cy() {
-    return this.storeY + this.yOffset;
+    if (this.args.draggable) {
+      return this.storeY + this.yOffset;
+    } else {
+      return this.args.y;
+    }
   }
 
 
@@ -132,7 +136,6 @@ export default class MalmotCircleComponent extends Component {
 
   @action
   mouseMoveCallback(event) {
-    console.log('Circle callback called');
     let mousemoveXLocation = event.clientX;
     let mousemoveYLocation = event.clientY;
 

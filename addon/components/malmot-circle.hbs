@@ -1,14 +1,14 @@
 {{#if @animatePositionChange}}
   {{#animated-value
-    bubble
+    this.bubble
     key="id"
     watch="myX,myY"
     use=this.moveThem
-    duration=1000 as |bubble|
+    duration=1000 as |v|
   }}
     <circle
-      cx={{bubble.myX}}
-      cy={{bubble.myY}}
+      cx={{v.myX}}
+      cy={{v.myY}}
       r={{@r}}
       fill="blue"
       fill-opacity="0.5"
