@@ -9,7 +9,7 @@
     <circle
       cx={{v.myX}}
       cy={{v.myY}}
-      r={{@r}}
+      r={{v.myR}}
       fill="blue"
       fill-opacity="0.5"
     ></circle>
@@ -19,7 +19,7 @@
   <circle
     cx={{this.bubble.myX}}
     cy={{this.bubble.myY}}
-    r={{@r}}
+    r={{this.bubble.myR}}
     fill="red"
     fill-opacity="0.5"
     {{did-insert this.registerMouseDownListener}}

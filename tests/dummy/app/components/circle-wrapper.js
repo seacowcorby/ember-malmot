@@ -26,6 +26,10 @@ export default class CircleWrapper extends Component {
     return 11 + (40 * this.animatePosition);
   }
 
+  get wrapperR() {
+    return 10 + (15 * this.animatePosition);
+  }
+
   @action
   moveButtonHandler() {
     this.animatePosition = 1 - this.animatePosition;

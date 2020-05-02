@@ -1,4 +1,6 @@
-import AddonDocsRouter, { docsRoute } from 'ember-cli-addon-docs/router';
+import AddonDocsRouter, {
+  docsRoute
+} from 'ember-cli-addon-docs/router';
 import config from './config/environment';
 
 const Router = AddonDocsRouter.extend({
@@ -6,8 +8,8 @@ const Router = AddonDocsRouter.extend({
   rootURL: config.rootURL,
 });
 
-Router.map(function() {
-  docsRoute(this, function() {
+Router.map(function () {
+  docsRoute(this, function () {
     this.route('usage');
     this.route('malmotsvg');
     this.route('malmotline');
@@ -17,6 +19,7 @@ Router.map(function() {
     this.route('clickndrag');
     this.route('animatemovement');
   });
+
 
 });
 

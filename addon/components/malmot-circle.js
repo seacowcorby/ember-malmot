@@ -48,8 +48,9 @@ export default class MalmotCircleComponent extends Component {
   get bubble() {
     return {
       myX: this.cx,
-      myY: this.cy
-    }
+      myY: this.cy,
+      myR: this.r
+    };
   }
 
   /// animation stuff
@@ -79,6 +80,10 @@ export default class MalmotCircleComponent extends Component {
     } else {
       return this.args.x;
     }
+  }
+
+  get r() {
+    return this.args.r;
   }
 
 
