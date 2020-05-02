@@ -2,7 +2,7 @@
   {{#animated-value
     this.bubble
     key="id"
-    watch="myX,myY"
+    watch="myX,myY,myR"
     use=this.moveThem
     duration=1000 as |v|
   }}
@@ -12,6 +12,7 @@
       r={{v.myR}}
       fill="blue"
       fill-opacity="0.5"
+      {{did-insert this.initialiseForEntryAnimation}}
     ></circle>
   {{/animated-value}}
 {{else}}
@@ -26,5 +27,6 @@
     {{did-insert this.registerMouseUpListener}}
     {{did-insert this.registerMouseMoveListener}}
     {{did-insert this.registerMouseClickListener}}
+    {{did-insert this.initialiseForEntryAnimation}}
   ></circle>
 {{/if}}

@@ -12,6 +12,10 @@ import {
 
 export default class MalmotSvgComponent extends Component {
 
+
+
+
+
   @tracked trackingMovement = false;
   @tracked mouseCallbacks = [];
 

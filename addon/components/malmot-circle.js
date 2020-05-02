@@ -9,10 +9,14 @@ import moveSVG from 'ember-animated/motions/move-svg';
 import {
   parallel
 } from 'ember-animated';
+// import {
+//   toLeft,
+//   toRight
+// } from 'ember-animated/transitions/move-over';
 import {
-  toLeft,
-  toRight
-} from 'ember-animated/transitions/move-over';
+  run,
+  scheduleOnce
+} from '@ember/runloop';
 
 export default class MalmotCircleComponent extends Component {
 
@@ -24,6 +28,10 @@ export default class MalmotCircleComponent extends Component {
   mouseIsDown = false;
   minimumDragDistance = 2;
   dragging = false;
+
+  @tracked beaconX = 0;
+  @tracked beaconY = 0;
+  @tracked beaconR = 0;
 
   @tracked storeX = 0;
   @tracked storeY = 0;
@@ -54,10 +62,17 @@ export default class MalmotCircleComponent extends Component {
   }
 
   /// animation stuff
-  * moveThem({
-    keptSprites
-  }) {
-    console.log("This is called");
+  * moveThem(context) {
+
+    let {
+      insertedSprites,
+      keptSprites,
+      removedSprites
+    } = context;
+
+
+
+
     // eslint-disable-next-line require-yield
     keptSprites.forEach(
       parallel(
@@ -66,24 +81,53 @@ export default class MalmotCircleComponent extends Component {
         moveSVG.property('r'),
       )
     );
+
+    // insertedSprites.forEach(
+    // moveSVG.property('cx'),
+    // moveSVG.property('cy'),
+    // moveSVG.property('r'),
+    // );
   }
 
 
 
 
+  @tracked initX = 0;
+  @tracked initY = 0;
+  @tracked initR = 10;
+
   /// end animation stuff
+
+  // on initial load, get default values first, then after a delay, load the args
+  @action
+  initialiseForEntryAnimation() {
+
+    this.initX = 0;
+    this.initY = 0;
+    this.initR = 10;
+
+    scheduleOnce('afterRender', this, function () {
+      this.initX = this.args.x;
+      this.initY = this.args.y;
+      this.initR = this.args.r;
+    });
+
+
+  }
 
 
   get cx() {
     if (this.args.draggable) {
       return this.storeX + this.xOffset;
     } else {
-      return this.args.x;
+      return this.initX;
+      // return this.args.x;
     }
   }
 
   get r() {
-    return this.args.r;
+    return this.initR;
+    // return this.args.r;
   }
 
 
@@ -91,7 +135,8 @@ export default class MalmotCircleComponent extends Component {
     if (this.args.draggable) {
       return this.storeY + this.yOffset;
     } else {
-      return this.args.y;
+      return this.initY;
+      // return this.args.y;
     }
   }
 

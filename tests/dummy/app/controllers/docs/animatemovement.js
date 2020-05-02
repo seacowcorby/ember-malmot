@@ -37,7 +37,7 @@ export default class AnimatemovementController extends Controller {
 
   get afghanCode() {
     if (this.model.codes && this.model.codes.length > 0) {
-      console.log(this.model);
+
       return this.model.codes[0].alpha_3;
     } else {
       return "Not loaded properly";
@@ -48,7 +48,7 @@ export default class AnimatemovementController extends Controller {
     let pops = this.threeCountries.map(pop => pop.populations).map(p => p['1977']);
     const domainMax = Math.max(...pops);
     const domainMin = Math.min(...pops);
-    console.log(scaleLinear().domain());
+
     let scale = scaleLinear().domain([domainMin, domainMax]).range([5, 20]);
     return scale;
   }
@@ -61,7 +61,7 @@ export default class AnimatemovementController extends Controller {
         return false;
       }
     });
-    console.log(three);
+
     return three;
   }
 
