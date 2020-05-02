@@ -1,13 +1,16 @@
 import Controller from '@ember/controller';
 import {
+  isPresent
+} from '@ember/utils';
+import {
   action
 } from '@ember/object';
 import {
   tracked
 } from "@glimmer/tracking";
 import {
-  filterBy
-} from '@ember/object/computed';
+  scaleLinear
+} from 'd3-scale';
 
 export default class AnimatemovementController extends Controller {
 
@@ -41,14 +44,25 @@ export default class AnimatemovementController extends Controller {
     }
   }
 
+  get threeCountryScale() {
+    let pops = this.threeCountries.map(pop => pop.populations).map(p => p['1977']);
+    const domainMax = Math.max(...pops);
+    const domainMin = Math.min(...pops);
+    console.log(scaleLinear().domain());
+    let scale = scaleLinear().domain([domainMin, domainMax]).range([5, 20]);
+    return scale;
+  }
+
   get threeCountries() {
-    return this.countryData.filter((c) => {
+    let three = this.countryData.filter((c) => {
       if (c.code) {
         return c.code.numeric == 108 || c.code.numeric == 222 || c.code.numeric == 807;
       } else {
         return false;
       }
     });
+    console.log(three);
+    return three;
   }
 
   get countryData() {
@@ -68,6 +82,15 @@ export default class AnimatemovementController extends Controller {
     countryPopulations.forEach(country => {
       let countryCode = country['Country code'];
       let code = codeIndex[countryCode];
+
+      [...Array(100).keys()].forEach(i => {
+        let val = (i + 1950).toString();
+        if (isPresent(country[val]) && isPresent(country[val].replace)) {
+
+          country[val] = Number(country[val].replace(',', ''));
+        }
+      });
+
       countryResult.push({
         code: code,
         populations: country
