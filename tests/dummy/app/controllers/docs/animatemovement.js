@@ -7,7 +7,7 @@ import {
 } from '@ember/object';
 import {
   tracked
-} from "@glimmer/tracking";
+} from '@glimmer/tracking';
 import {
   scaleLinear
 } from 'd3-scale';
