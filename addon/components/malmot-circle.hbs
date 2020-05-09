@@ -1,4 +1,6 @@
-{{#if @animatePositionChange}}
+{{log this.animateChanges}}
+{{#if this.animateChanges}}
+  {{log 'We are going to animate' }}
   {{#animated-value
     this.bubble
     key="id"
@@ -13,10 +15,10 @@
       fill="blue"
       fill-opacity="0.5"
       {{did-insert this.initialiseForEntryAnimation}}
+
     ></circle>
   {{/animated-value}}
 {{else}}
-  Not animated
   <circle
     cx={{this.bubble.myX}}
     cy={{this.bubble.myY}}

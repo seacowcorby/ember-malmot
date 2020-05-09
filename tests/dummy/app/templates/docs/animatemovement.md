@@ -38,13 +38,13 @@ based on the size of a countries population
             @height="100" 
             @width="300">
                
-               {{#animated-each this.threeCountries as |country index|}}
+               {{#each this.threeCountries as |country index|}}
                   <MalmotCircle 
                      @x={{add 50 (mult index 100)}}
                      @y=50 
                      @r={{malmot-scaler this.threeCountryScale (get country.populations '1977')}}
-                     @animatePositionChange=false/>
-               {{/animated-each}} 
+                     @animatePositionChange=true/>
+               {{/each}} 
          </MalmotSvg> 
          <button {{on 'click' moveButtonHandler}}>Move</button> 
      
