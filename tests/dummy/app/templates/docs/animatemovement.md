@@ -13,7 +13,8 @@ Animation of position
                   @x={{simpleX}}
                   @y={{simpleY}} 
                   @r={{simpleR}} 
-                  @animatePositionChange=true/>
+                                      @animateInitialPosition=true
+                                      @animatePositionChange=true/>
          </MalmotSvg> 
          <button {{on 'click' moveButtonHandler}}>Move</button> 
      
@@ -43,7 +44,9 @@ based on the size of a countries population
                      @x={{add 50 (mult index 100)}}
                      @y=50 
                      @r={{malmot-scaler this.threeCountryScale (get country.populations '1977')}}
-                     @animatePositionChange=true/>
+                     @animateInitialPosition=true
+                     @animatePositionChange=true
+                               />
                {{/each}} 
          </MalmotSvg> 
          <button {{on 'click' moveButtonHandler}}>Move</button> 

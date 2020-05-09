@@ -1,47 +1,3 @@
-# Animating move
-
-To animate value changes, set the animatePositionChange to true
-
-{{#docs-demo as |demo|}}
-   {{#demo.example name="animateMove.hbs"}}
-      <MalmotSvg 
-         @height="30" 
-         @width="200" as |svg|>
-            <MalmotCircle 
-                @x={{componentX}}
-                @y="11"
-                @r="10"
-                @animatePositionChange=true
-      />
-      </MalmotSvg> 
-      <button {{on 'click' moveButtonHandler}}>Move</button> 
-   {{/demo.example}} 
-   {{demo.snippet "animateMove.hbs"}} 
-{{/docs-demo}}
-
-# Animating into position
-
-To animate into position, just set animateInitalPosition to true
-
-{{#docs-demo as |demo|}}
-   {{#demo.example name="animateIn.hbs"}}
-      <MalmotSvg 
-         @height="30" 
-         @width="200" as |svg|>
-            <MalmotCircle 
-                @x="11" 
-                @y="11" 
-                @r="10" 
-                @animateInitialPosition=false
-                @animatePositionChange=false
-      />
-      </MalmotSvg> 
-   {{/demo.example}}
-   {{demo.snippet "animateIn.hbs"}} 
-{{/docs-demo}}
-
-
-
 # Simple Circle
 
 To insert a simple circle:
@@ -145,5 +101,47 @@ from the initial click event for an onClick action to be able to fire.
    {{demo.snippet "clickorclickndrag01.hbs"}} 
 {{/docs-demo}}
 
+# Animating into position
+
+To animate into position, just set animateInitalPosition to true
+
+{{#docs-demo as |demo|}}
+   {{#demo.example name="animateIn.hbs"}}
+      <MalmotSvg 
+         @height="30" 
+         @width="200" as |svg|>
+            <MalmotCircle 
+                @x="11" 
+                @y="11" 
+                @r="10" 
+                @animateInitialPosition=true
+                @animatePositionChange=true
+      />
+      </MalmotSvg> 
+   {{/demo.example}}
+   {{demo.snippet "animateIn.hbs"}} 
+{{/docs-demo}}
+
+# Animating move
+
+To animate value changes, set the animatePositionChange to true
+
+{{#docs-demo as |demo|}}
+   {{#demo.example name="animateMove.hbs"}}
+      <MalmotSvg 
+         @height="30" 
+         @width="200" as |svg|>
+            <MalmotCircle 
+                @x={{componentX}}
+                @y="11"
+                @r="10"
+                @animateInitialPosition=false
+                @animatePositionChange=true
+      />
+      </MalmotSvg> 
+      <button {{on 'click' moveButtonHandler}}>Move</button> 
+   {{/demo.example}} 
+   {{demo.snippet "animateMove.hbs"}} 
+{{/docs-demo}}
 
 

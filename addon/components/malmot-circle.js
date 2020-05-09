@@ -67,19 +67,7 @@ export default class MalmotCircleComponent extends Component {
   @tracked beaconY = 0;
   @tracked beaconR = 0;
 
-  /** Paramater initialisation
-   *
-   * When the component is created, the geometric values are pushed in
-   * via the args.
-   *
-   * If we are animating the shape into place, default values are loaded
-   * into initX, then a job sets it to the contents of args.x. Animation will the make it move into position. See the initialiseForEntryAnimation
-   * method for how this is done.
-   */
 
-  @tracked initX = 0;
-  @tracked initY = 0;
-  @tracked initR = 10;
 
   /*
   * Store X and Y maintain location for dragging. Specifically, they store the
@@ -99,6 +87,21 @@ export default class MalmotCircleComponent extends Component {
    */
   @tracked animateInitial = false;
   @tracked animateChanges = false;
+
+  /** Paramater initialisation
+   *
+   * When the component is created, the geometric values are pushed in
+   * via the args.
+   *
+   * If we are animating the shape into place, default values are loaded
+   * into initX, then a job sets it to the contents of args.x. Animation will the make it move into position. See the initialiseForEntryAnimation
+   * method for how this is done.
+   */
+
+  @tracked initX = 0;
+  @tracked initY = 0;
+  @tracked initR = 10;
+
 
   constructor() {
     super(...arguments);
@@ -141,6 +144,8 @@ export default class MalmotCircleComponent extends Component {
     this.storeX = this.initialX;
     this.storeY = this.initialY;
   }
+
+
 
   /**
    * This is the content that actually gets pushed into the template.
@@ -194,16 +199,16 @@ export default class MalmotCircleComponent extends Component {
 
 
   get cx() {
-    /*
-      * - if the item is draggable, then just return the position of the element
-      * - if we are animating in, you want to return initX
-    */
-
     if (this.args.draggable) {
       return this.storeX + this.xOffset;
     } else {
-      if (this.animateChanges) {
-        return this.args.x;
+      if (this.animateChanges ) {
+        if (this.animateInitial) {
+          return this.initX;
+        } else {
+          return this.args.x;
+        }
+
       } else {
         return this.initX;
       }
@@ -211,8 +216,16 @@ export default class MalmotCircleComponent extends Component {
   }
 
   get r() {
-    return this.initR;
-    // return this.args.r;
+      if (this.animateChanges ) {
+        if (this.animateInitial) {
+          return this.initR;
+        } else {
+          return this.args.r;
+        }
+      }
+      else {
+        return this.initR;
+      }
   }
 
 
@@ -220,8 +233,16 @@ export default class MalmotCircleComponent extends Component {
     if (this.args.draggable) {
       return this.storeY + this.yOffset;
     } else {
-      return this.initY;
-      // return this.args.y;
+      if (this.animateChanges ) {
+        if (this.animateInitial) {
+          return this.initY;
+        } else {
+          return this.args.y;
+        }
+
+      } else {
+        return this.initY;
+      }
     }
   }
 
